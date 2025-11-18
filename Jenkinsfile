@@ -1,27 +1,13 @@
 pipeline {
 agent any
 environment {
-APP_NAME = 'my-app'
+DOCKER_USER = 'poste06dockerpassword'
 }
 stages {
-stage('Build') {
+stage('Login Docker') {
 steps {
-script {
-def buildVersion = "1.0.${env.BUILD_NUMBER}"
-echo "Building ${APP_NAME} version ${buildVersion}"
-}
-}
-}
-stage('Test') {
-steps {
-echo "Testing ${APP_NAME}..."
-}
-}
-stage('Deploy') {
-steps {
-script {
-def buildVersion = "1.0.${env.BUILD_NUMBER}"
-echo "Deploying ${APP_NAME} version ${buildVersion}"
+withCredentials([string(credentialsId: 'DOCKER_PASSWORD', variable: 'POSTE06-DOCKER_PASS')]) {
+sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
 }
 }
 }
