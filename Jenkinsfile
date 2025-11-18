@@ -19,3 +19,9 @@ stage('Analyse Qualité') {
 steps {
 echo "Analyse statique du code avec SonarQube..."
 sh 'sleep 4' // Simulation de l’analyse
+}
+}
+}
+}
+}
+}
